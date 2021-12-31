@@ -1,5 +1,5 @@
 var express = require('express');
-var r = express.Router();
+var x3 = express.Router();
 
 // load pre-trained model
 const model = require('./sdk/model.js'); // predict
@@ -36,7 +36,7 @@ bot.on('message', (msg) => {
         model.predict(
             [
                 parseFloat(s[0]), // string to float
-                parseFloat(s[1]),
+                parseFloat(s[1]), // string to float
                 parseFloat(s[2])
             ]
         ).then((jres1)=>{
@@ -88,8 +88,8 @@ r.get('/predict/:x1/:x2/:x3', function(req, res, next) {
     model.predict(
         [
             parseFloat(req.params.x1), // string to float
-            parseFloat(req.params.x1),
-            parseFloat(req.params.x1)
+            parseFloat(req.params.x2), // string to float
+            parseFloat(req.params.x3)
         ]
     ).then((jres)=>{
         bot.sendMessage(
@@ -107,14 +107,14 @@ r.get('/classify/:x1/:x2/:x3', function(req, res, next) {
     model.predict(
         [
             parseFloat(req.params.x1), // string to float
-            parseFloat(req.params.x2),
+            parseFloat(req.params.x2), // string to float
             parseFloat(req.params.x3)
         ]
     ).then((jres)=>{
         cls_model.classify(
             [
                 parseFloat(req.params.x1), // string to float
-                parseFloat(req.params.x2),
+                parseFloat(req.params.x2), 
                 parseFloat(req.params.x3),
                 parseFloat(jres[0]),
                 parseFloat(jres[1]),
