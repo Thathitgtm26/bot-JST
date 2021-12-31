@@ -24,7 +24,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `Masukan nilai x1|x2|x3 contohnya 8|8|8`
+        `Masukan nilai x1|x2|x3 contohnya 3|6|9`
     );
     state = 1;
 });
