@@ -19,7 +19,7 @@ async function predict(data){
     let in_dim = 3;
     
     data = normalized(data);
-    shape = [2, in_dim];
+    shape = [1, in_dim];
 
     tf_data = tf.tensor2d(data, shape);
 
