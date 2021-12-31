@@ -7,7 +7,7 @@ const cls_model = require('./sdk/cls_model.js'); // cls
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
-const token = '1781217246:AAFHYFBOPzB5DGgqgPVXUotACNdQxRWQ_5I'
+const token = '5001348467:AAHIeGBZ9etH_j3eDhEADJ4ipFAfQYEytX0'
 const bot = new TelegramBot(token, {polling: true});
 
 state = 0;
@@ -21,11 +21,11 @@ bot.onText(/\/start/, (msg) => {
     state = 0;
 });
 
-// input requires i and r
+// input requires X1, X2, and X3
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai i|v contohnya 9|9`
+        `masukan nilai X1|X2|X3 contohnya 3|6|9`
     );   
     state = 1;
 });
@@ -36,19 +36,24 @@ bot.on('message', (msg) => {
         model.predict(
             [
                 parseFloat(s[0]), // string to float
-                parseFloat(s[1])
+                parseFloat(s[1]),
+                parseFloat(s[2])
             ]
         ).then((jres1)=>{
             console.log(jres1);
             
-            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1])]).then((jres2)=>{
+            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1]), parseFloat(jres1[1])]).then((jres2)=>{
                 bot.sendMessage(
                         msg.chat.id,
-                        `nilai v yang diprediksi adalah ${jres1[0]} volt`
+                        `nilai Y1 yang diprediksi adalah ${jres1[0]} `
                 ); 
                 bot.sendMessage(
                     msg.chat.id,
-                    `nilai p yang diprediksi adalah ${jres1[1]} watt`
+                    `nilai Y2 yang diprediksi adalah ${jres1[1]} `
+                ); 
+                bot.sendMessage(
+                    msg.chat.id,
+                    `nilai Y3 yang diprediksi adalah ${jres1[2]} `
                 ); 
                 bot.sendMessage(
                         msg.chat.id,
@@ -78,17 +83,18 @@ r.get('/test/:key', function(req, res, next){
 
 
 // routers
-// use => ...../api/predict/10/20
-r.get('/predict/:i/:r', function(req, res, next) {    
+// use => ...../api/predict/10/20/30
+r.get('/predict/:X1/:X2/:X3', function(req, res, next) {    
     model.predict(
         [
-            parseFloat(req.params.i), // string to float
-            parseFloat(req.params.r)
+            parseFloat(req.params.X1), // string to float
+            parseFloat(req.params.X1),
+            parseFloat(req.params.X1)
         ]
     ).then((jres)=>{
         bot.sendMessage(
                 1599833896, //msg.id
-                `${jres[0]}|${jres[1]}`
+                `${jres[0]}|${jres[1]}|${jres[2]}`
         ); // to telegram
         
         res.json(jres); // to pc / arduino
@@ -96,20 +102,23 @@ r.get('/predict/:i/:r', function(req, res, next) {
 });
 
 // routers
-// use => ...../api/classify/10/20
-r.get('/classify/:i/:r', function(req, res, next) {    
+// use => ...../api/classify/10/20/30
+r.get('/classify/:X1/:X2/:X3', function(req, res, next) {    
     model.predict(
         [
-            parseFloat(req.params.i), // string to float
-            parseFloat(req.params.r)
+            parseFloat(req.params.X1), // string to float
+            parseFloat(req.params.X2),
+            parseFloat(req.params.X3)
         ]
     ).then((jres)=>{
         cls_model.classify(
             [
-                parseFloat(req.params.i), // string to float
-                parseFloat(req.params.r),
+                parseFloat(req.params.X1), // string to float
+                parseFloat(req.params.X2),
+                parseFloat(req.params.X3),
                 parseFloat(jres[0]),
-                parseFloat(jres[1])
+                parseFloat(jres[1]),
+                parseFloat(jres[2])
             ]
         ).then((jres_)=>{
             bot.sendMessage(
@@ -122,4 +131,4 @@ r.get('/classify/:i/:r', function(req, res, next) {
     })
 });
 
-module.exports = r;
+module.exports = X3;
