@@ -21,11 +21,11 @@ bot.onText(/\/start/, (msg) => {
     state = 0;
 });
 
-// input requires X1, X2, and X3
+// input requires x1, x2, and x3
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai X1|X2|X3 contohnya 3|6|9`
+        `masukan nilai x1|x2|x3 contohnya 3|6|9`
     );   
     state = 1;
 });
@@ -45,15 +45,15 @@ bot.on('message', (msg) => {
             cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1]), parseFloat(jres1[1])]).then((jres2)=>{
                 bot.sendMessage(
                         msg.chat.id,
-                        `nilai Y1 yang diprediksi adalah ${jres1[0]} `
+                        `nilai y1 yang diprediksi adalah ${jres1[0]} volt`
                 ); 
                 bot.sendMessage(
                     msg.chat.id,
-                    `nilai Y2 yang diprediksi adalah ${jres1[1]} `
+                    `nilai y2 yang diprediksi adalah ${jres1[1]} watt`
                 ); 
                 bot.sendMessage(
                     msg.chat.id,
-                    `nilai Y3 yang diprediksi adalah ${jres1[2]} `
+                    `nilai y3 yang diprediksi adalah ${jres1[2]} ampere`
                 ); 
                 bot.sendMessage(
                         msg.chat.id,
@@ -84,12 +84,12 @@ r.get('/test/:key', function(req, res, next){
 
 // routers
 // use => ...../api/predict/10/20/30
-r.get('/predict/:X1/:X2/:X3', function(req, res, next) {    
+r.get('/predict/:x1/:x2/:x3', function(req, res, next) {    
     model.predict(
         [
-            parseFloat(req.params.X1), // string to float
-            parseFloat(req.params.X1),
-            parseFloat(req.params.X1)
+            parseFloat(req.params.x1), // string to float
+            parseFloat(req.params.x1),
+            parseFloat(req.params.x1)
         ]
     ).then((jres)=>{
         bot.sendMessage(
@@ -103,19 +103,19 @@ r.get('/predict/:X1/:X2/:X3', function(req, res, next) {
 
 // routers
 // use => ...../api/classify/10/20/30
-r.get('/classify/:X1/:X2/:X3', function(req, res, next) {    
+r.get('/classify/:x1/:x2/:x3', function(req, res, next) {    
     model.predict(
         [
-            parseFloat(req.params.X1), // string to float
-            parseFloat(req.params.X2),
-            parseFloat(req.params.X3)
+            parseFloat(req.params.x1), // string to float
+            parseFloat(req.params.x2),
+            parseFloat(req.params.x3)
         ]
     ).then((jres)=>{
         cls_model.classify(
             [
-                parseFloat(req.params.X1), // string to float
-                parseFloat(req.params.X2),
-                parseFloat(req.params.X3),
+                parseFloat(req.params.x1), // string to float
+                parseFloat(req.params.x2),
+                parseFloat(req.params.x3),
                 parseFloat(jres[0]),
                 parseFloat(jres[1]),
                 parseFloat(jres[2])
@@ -131,4 +131,4 @@ r.get('/classify/:X1/:X2/:X3', function(req, res, next) {
     })
 });
 
-module.exports = X3;
+module.exports = x3;
