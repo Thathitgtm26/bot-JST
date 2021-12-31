@@ -9,7 +9,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const token = '5001348467:AAHIeGBZ9etH_j3eDhEADJ4ipFAfQYEytX0'
 const bot = new TelegramBot(token, {polling: true});
 
-state = 0;
+state = 0
 // Main Menu Bot
 bot.onText(/\/start/, (msg) => { 
     bot.sendMessage(
@@ -54,13 +54,11 @@ bot.on('message', (msg) => {
                 msg.chat.id,
                 `hasil nilai y3 adalah ${jres[2]}`
             );
-            state = 0;
         })
     }else{
-        state = 0
+        state = 0;
     }
 })
-
 
 // routers
 // use => ...../api/predict/10/20/30
