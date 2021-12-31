@@ -32,53 +32,34 @@ bot.onText(/\/predict/, (msg) => {
 bot.on('message', (msg) => {
     if(state == 1){
         s = msg.text.split("|");
+        x1 = s[0]
+        x2 = s[1]
+        x3 = s[2]
         model.predict(
-            [
-                parseFloat(s[0]), // string to float
-                parseFloat(s[1]), // string to float
+            [ 
+                parseFloat(s[0]), // string float
+                parseFloat(s[1]),
                 parseFloat(s[2])
             ]
-        ).then((jres1)=>{
-            console.log(jres1);
-            
-            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(s[2]), parseFloat(jres1[0]), parseFloat(jres1[1]), parseFloat(jres1[2])]).then((jres2)=>{
-                bot.sendMessage(
-                        msg.chat.id,
-                        `hasil nilai y1 adalah ${jres1[0]} volt`
-                ); 
-                bot.sendMessage(
-                    msg.chat.id,
-                    `hasil nilai y2 adalah ${jres1[1]} watt`
-                ); 
-                bot.sendMessage(
-                    msg.chat.id,
-                    `hasil nilai y3 adalah ${jres1[2]} ampere`
-                ); 
-                bot.sendMessage(
-                        msg.chat.id,
-                        `Klasifikasi Tegangan ${jres2}`
-                );
-                state = 0;
-            })
+        ).then((jres)=>{
+            bot.sendmessage(
+                msg.chat.id,
+                `hasil nilai y1 adalah ${jres[0]}`
+            );  
+            bot.sendmessage(
+                msg.chat.id,
+                `hasil nilai y2 adalah ${jres[1]}`
+            );
+            bot.sendmessage(
+                msg.chat.id,
+                `hasil nilai y3 adalah ${jres[2]}`
+            );
+            state = 0;
         })
     }else{
-        bot.sendMessage(
-        msg.chat.id,
-            `Please Click /start`
-        );  
-        state = 0;
+        state = 0
     }
-    console.log(msg.chat.id);
 })
-
-
-x3.get('/test/:key', function(req, res, next){
-    bot.sendMessage(
-            1599833896, //msg.id
-            `${req.params.key}`
-    );
-    res.json(req.params.key);
-});
 
 
 // routers
@@ -90,44 +71,8 @@ x3.get('/predict/:x1/:x2/:x3', function(req, res, next) {
             parseFloat(req.params.x2), // string to float
             parseFloat(req.params.x3)
         ]
-    ).then((jres)=>{
-        bot.sendMessage(
-                1599833896, //msg.id
-                `${jres[0]}|${jres[1]}|${jres[2]}`
-        ); // to telegram
-        
+    ).then((jres)=>{   
         res.json(jres); // to pc / arduino
     })
 });
-
-// routers
-// use => ...../api/classify/10/20/30
-x3.get('/classify/:x1/:x2/:x3', function(req, res, next) {    
-    model.predict(
-        [
-            parseFloat(req.params.x1), // string to float
-            parseFloat(req.params.x2), // string to float
-            parseFloat(req.params.x3)
-        ]
-    ).then((jres)=>{
-        cls_model.classify(
-            [
-                parseFloat(req.params.x1), // string to float
-                parseFloat(req.params.x2), 
-                parseFloat(req.params.x3),
-                parseFloat(jres[0]),
-                parseFloat(jres[1]),
-                parseFloat(jres[2])
-            ]
-        ).then((jres_)=>{
-            bot.sendMessage(
-                    1599833896, //msg.id
-                    `${jres_}`
-            ); // to telegram
-            
-            res.json({jres, jres_})
-        })
-    })
-});
-
 module.exports = x3;
