@@ -2,29 +2,33 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-let i = 0;
-let r = 0;
-router.get('/set/:i/:r/', function(req, res, next) {
-  i = req.params.i;
-  r = req.params.r;
+let x1 = 0;
+let x2 = 0;
+let x3 = 0;
+router.get('/set/:x1/:x2/:x3/', function(req, res, next) {
+  x1 = req.params.x1;
+  x2 = req.params.x2;
+  x2 = req.params.x2;
   res.json({
-    i:i, 
-    r:r
+    x1:x1, 
+    x2:x2,
+    x3:x3
   })
 });
 
 router.get('/:sel', function(req, res, next) {
-  if(req.params.sel == "p"){
+  if(req.params.sel == "x3"){
     res.render(
       'index', 
       { 
         title: 'DNNJS',
-        i: i,
-        r: r
+        x1: x1,
+        x2: x2,
+        x3: x3
       }
     );
   }else{
-    res.redirect(`/api/classify/${i}/${r}`)
+    res.redirect(`/api/classify/${x1}/${x2}/${x3}`)
   }
 });
 
