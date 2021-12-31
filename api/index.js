@@ -3,7 +3,6 @@ var x3 = express.Router();
 
 // load pre-trained model
 const model = require('./sdk/model.js'); // predict
-const ex_model = require('./sdk/ex_model.js'); // cls
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
