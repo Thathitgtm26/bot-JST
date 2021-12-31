@@ -16,8 +16,8 @@ const argMax = argFact((min, el) => (el[0] > min[0] ? el : min))
 function ArgMax(res){
     label = "NORMAL"
     cls_data = []
-    for(i=0; i<res.length; i++){
-        cls_data[i] = res[i]
+    for(x1=0; x1<res.length; x1++){
+        cls_data[x1] = res[x1]
     }
     // 
     
