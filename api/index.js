@@ -45,15 +45,15 @@ bot.on('message', (msg) => {
             cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1]), parseFloat(jres1[1])]).then((jres2)=>{
                 bot.sendMessage(
                         msg.chat.id,
-                        `nilai y1 yang diprediksi adalah ${jres1[0]} volt`
+                        `hasil nilai y1 adalah ${jres1[0]} volt`
                 ); 
                 bot.sendMessage(
                     msg.chat.id,
-                    `nilai y2 yang diprediksi adalah ${jres1[1]} watt`
+                    `hasil nilai y2 adalah ${jres1[1]} watt`
                 ); 
                 bot.sendMessage(
                     msg.chat.id,
-                    `nilai y3 yang diprediksi adalah ${jres1[2]} ampere`
+                    `hasil nilai y3 adalah ${jres1[2]} ampere`
                 ); 
                 bot.sendMessage(
                         msg.chat.id,
@@ -73,7 +73,7 @@ bot.on('message', (msg) => {
 })
 
 
-r.get('/test/:key', function(req, res, next){
+x3.get('/test/:key', function(req, res, next){
     bot.sendMessage(
             1599833896, //msg.id
             `${req.params.key}`
@@ -84,8 +84,8 @@ r.get('/test/:key', function(req, res, next){
 
 // routers
 // use => ...../api/predict/10/20/30
-r.get('/predict/:x1/:x2/:x3', function(req, res, next) {    
-    model.predict(
+x3.get('/predict/:x1/:x2/:x3', function(req, res, next) {    
+    model1_7.predict(
         [
             parseFloat(req.params.x1), // string to float
             parseFloat(req.params.x2), // string to float
@@ -103,7 +103,7 @@ r.get('/predict/:x1/:x2/:x3', function(req, res, next) {
 
 // routers
 // use => ...../api/classify/10/20/30
-r.get('/classify/:x1/:x2/:x3', function(req, res, next) {    
+x3.get('/classify/:x1/:x2/:x3', function(req, res, next) {    
     model.predict(
         [
             parseFloat(req.params.x1), // string to float
