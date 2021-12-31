@@ -1,5 +1,5 @@
 var express = require('express');
-var x3 = express.Router();
+var v = express.Router();
 
 // load pre-trained model
 const model = require('./sdk/model.js');
@@ -60,7 +60,7 @@ bot.on('message', (msg) => {
     }
 })
 // routers
-x3.get('/predict/:x1/:x2/:x3', function(req, res, next) {
+v.get('/predict/:x1/:x2/:x3', function(req, res, next) {
     model.predict(
         [
             parseFloat(req.params.x1),// string float
@@ -71,4 +71,4 @@ x3.get('/predict/:x1/:x2/:x3', function(req, res, next) {
         res.json(jres);
     })
 });
-module.exports = x3;
+module.exports = v;
