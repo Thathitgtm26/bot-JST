@@ -30,13 +30,15 @@
     
     <script>	
 	function classify(){
-	  let i = $("#i").text();
-	  let r = $("#r").text();
+	  let x1 = $("#x1").text();
+	  let x2 = $("#x2").text();
+	  let x2 = $("#x2").text();
 	  
-          $.get(`/api/classify/${i}/${r}`).done(function(dt){
+          $.get(`/api/classify/${x1}/${x2}/${x3}`).done(function(dt){
               
-              $("#v").text(dt['jres'][0])
-              $("#p").text(dt['jres'][1])
+              $("#y1").text(dt['jres'][0])
+              $("#y2").text(dt['jres'][1])
+	      $("#y3").text(dt['jres'][2])
               $("#l").text(dt['jres_'])
 
               console.log(dt['jres'])
